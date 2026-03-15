@@ -1,6 +1,6 @@
 {
   "name": "slated",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Film-production-inspired agentic coordination framework for Claude Code. Provides crew roles, skills, and the actor agent for structured, scene-based delivery.",
   "author": {
     "name": "Jordan Accinelli",
