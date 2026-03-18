@@ -88,6 +88,43 @@ The casting-director scans the codebase, drafts backgrounds from discovered patt
 
 ---
 
+## Example: A Scene Writing Cycle
+
+Once a project is set up, delivering a feature looks like this:
+
+**1. Plan the scene**
+
+```
+/write-scene add a contact form to the homepage
+```
+
+The writer interviews you if the requirement needs clarification, proposes a cast, defines verifiable objectives, and sequences the work into shots. Nothing is written until you confirm the manuscript.
+
+**2. Run the scene**
+
+```
+/shoot-scene contact-form
+```
+
+The director dispatches actors per the cast, commissions a writer review of manuscript fidelity, evaluates output against objectives and role definitions, and either passes or fails the take. Failed takes surface a prioritised list of required changes and automatically begin the next take. When a take passes, the director wraps the scene — appending the Completion Record, writing `wrap.md`, and updating the storyboard.
+
+Or step through it manually:
+
+```
+/shoot-take contact-form     ← one take at a time, verdict returned to you
+/wrap-scene contact-form     ← once a take passes
+```
+
+**3. Review**
+
+```
+/review-project
+```
+
+The producer reviews all completed scenes — static analysis and an interactive pass — and produces a report. Findings are written to `review.md` per scene and feed into the next take if the scene is re-shot.
+
+---
+
 ## Production Lifecycle
 
 ```
