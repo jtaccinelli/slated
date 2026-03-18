@@ -46,22 +46,9 @@ The local copy takes precedence over any installed registry version with the sam
 /init
 ```
 
-This creates `~/.claude/slated/roles/` and `~/.claude/slated/backgrounds/`.
+This creates `~/.claude/slated/roles/` and `~/.claude/slated/backgrounds/`, and seeds the bundled crew role definitions. You do not need to define crew roles manually.
 
-### 3. Define crew roles (once per user)
-
-Crew roles govern the production workflow. Define them globally so they're available in every project:
-
-```
-/cast-role writer
-/cast-role director
-/cast-role producer
-/cast-role set-designer
-/cast-role visualiser
-/cast-role casting-director
-```
-
-### 4. Define backgrounds (as needed)
+### 3. Define backgrounds (as needed)
 
 Backgrounds are domain knowledge documents. Define them globally for reuse across projects:
 
@@ -71,7 +58,9 @@ Backgrounds are domain knowledge documents. Define them globally for reuse acros
 /establish-background drizzle
 ```
 
-### 5. Start a project
+### 4. Start a project
+
+**New project:**
 
 ```
 /produce-project
@@ -85,6 +74,14 @@ The producer interviews you, verifies all required roles and backgrounds exist, 
 
 The set-designer builds the project from the outline.
 
+**Existing project:**
+
+```
+/onboard-project
+```
+
+The casting-director scans the codebase, drafts backgrounds from discovered patterns, proposes cast roles from the directory structure, and authors a retroactive set outline.
+
 ---
 
 ## Production Lifecycle
@@ -94,6 +91,7 @@ The set-designer builds the project from the outline.
 /cast-role <name>              → define a crew or cast role
 /establish-background <name>   → define a background document
 /produce-project               → gate production readiness, author set outline
+/onboard-project               → bring an existing project into the framework
 /build-set                     → scaffold project from outline
 /write-scene <requirement>     → plan a scene — manuscript + storyboard entry
 /shoot-take <scene>            → execute one take, return verdict
@@ -144,7 +142,7 @@ Reference templates for roles, backgrounds, skills, and scenes live in `template
 
 Roles divide into two categories:
 
-**Crew** — operate within the meta-narrative. Define these once globally.
+**Crew** — operate within the meta-narrative. Seeded automatically by `/init`.
 
 | Role | Responsibility |
 |---|---|
