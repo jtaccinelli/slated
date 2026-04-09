@@ -7,7 +7,7 @@ argument-hint: [scene name]
 
 # Shoot Scene
 
-Run a full scene from first take to completion. The director spawns a director agent per take, feeding next-take instructions back automatically until a take passes, then immediately runs the wrap-scene process to close out the scene.
+Run a full scene from first take to completion. The director executes takes in sequence using the shoot-take process, feeding next-take instructions back automatically until a take passes, then immediately runs the wrap-scene process to close out the scene.
 
 ---
 
@@ -30,18 +30,17 @@ The take loop has a maximum of **5 takes**. Count takes from the existing take f
 
 Repeat until a take passes or the limit is reached:
 
-1. Spawn a director agent per the shoot-take **Orchestration** section — passing `--role director`, the scene name, the repo root path, and the full **Director Agent Instructions** from the shoot-take skill verbatim
-2. Wait for the director agent to return its structured verdict block
-3. If the verdict is **FAIL** and the limit has **not** been reached: surface a brief status update to the user, then continue to the next iteration:
+1. Execute the shoot-take process in full for the current scene — with one exception: do not stop and return control to the user at the end of the take. Instead, read the take file that was written and use the verdict to determine the next step.
+2. If the take **failed** and the limit has **not** been reached: surface a brief status update to the user, then continue to the next iteration automatically:
    ```
    Take <NNN> — FAIL. Beginning take <NNN+1>.
    ```
-4. If the verdict is **FAIL** and the limit **has** been reached: exit the loop and proceed to Step 2 (hard stop — do not wrap the scene).
-5. If the verdict is **PASS**: exit the loop and proceed to Step 3 (wrap the scene).
+3. If the take **failed** and the limit **has** been reached: exit the loop and proceed to Step 2.
+4. If the take **passed**: exit the loop and proceed to Step 3.
 
 ### Step 2 — Hard stop (take limit reached)
 
-If the loop exited because the take limit was reached, surface the following and stop:
+Surface the following and stop:
 
 ```
 Scene <name> — BLOCKED
@@ -90,7 +89,7 @@ Changes are on branch scene/<scene-name> — open a PR when ready.
 
 - Never run a scene whose status is not `confirmed` or `in-progress`
 - Never skip the wrap-scene process after a passing take — the scene is not done until the Completion Record, wrap.md, and storyboard are all updated
-- Never return control to the user between takes — the take loop runs uninterrupted until a take passes or the limit is reached, with two permitted pause points: the casting-director conflict pause in shoot-take Step 7 (surfaced via AskUserQuestion by the director agent), and the wrap-scene Role Improvement Notes pause after the loop completes
 - Never exceed 5 takes — if the limit is reached without a passing take, stop at Step 2 and surface the blocked summary to the user
 - Never wrap the scene after a hard stop — Step 3 runs only after a passing take, not after the limit is reached
+- Never return control to the user between takes — the take loop runs uninterrupted until a take passes or the limit is reached, with two permitted pause points: the casting-director conflict pause in shoot-take Step 7 (surfaced via AskUserQuestion), and the wrap-scene Role Improvement Notes pause after the loop completes
 - All rules defined in the shoot-take and wrap-scene skills remain in effect when those processes are executed here
