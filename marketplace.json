@@ -1,5 +1,5 @@
 {
-  "name": "slated",
+  "name": "jtaccinelli",
   "owner": {
     "name": "Jordan Accinelli",
     "email": "info@jtaccinelli.com.au"
@@ -11,7 +11,7 @@
   "plugins": [
     {
       "name": "slated",
-      "source": "./plugin",
+      "source": "./slated",
       "description": "Film-production-inspired agentic coordination framework for Claude Code. Provides crew roles, skills, and the actor agent for structured, scene-based delivery.",
       "version": "0.1.0",
       "author": {

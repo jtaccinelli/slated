@@ -21,7 +21,7 @@ A film-production-inspired agentic coordination framework for Claude Code. Slate
 To load the plugin from your local clone rather than the registry, pass `--plugin-dir` when starting Claude Code:
 
 ```
-claude --plugin-dir /path/to/slated/plugin
+claude --plugin-dir /path/to/slated/slated
 ```
 
 The local copy takes precedence over any installed registry version with the same name for that session. After making changes, reload without restarting:
@@ -37,11 +37,11 @@ The local copy takes precedence over any installed registry version with the sam
 ### 1. Add the marketplace and install the plugin
 
 ```
-/plugin marketplace add jtaccinelli-slated
+/plugin marketplace add jtaccinelli
 ```
 
 ```
-/plugin install slated@jtaccinelli-slated
+/plugin install slated@jtaccinelli
 ```
 
 ### 2. Initialise global directories (once per device)
