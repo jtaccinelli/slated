@@ -49,18 +49,12 @@ Based on the requirement, determine:
 2. **Which backgrounds should each actor load?** — Select from the available backgrounds. Only include backgrounds directly relevant to the work the actor will do.
 3. **What external resources are required?** — APIs, services, databases, third-party platforms.
 
-Present the proposed cast to the user. If a required role or background does not exist, stop immediately — do not invent one and do not continue planning. No files have been written at this point, so there is nothing to clean up. Surface the gap to the user:
+Present the proposed cast to the user. If a required role or background does not exist, draft it autonomously before proceeding:
 
-```
-Cannot proceed — the following are required but do not exist:
+- **Missing role**: follow the cast-role process inline — draft a complete role definition (identity, background narrative, expertise, behavioral parameters, constraints, interactions) derived from the manuscript requirement and the project context; ask the user whether it should be global or project-specific; write the file to the confirmed location.
+- **Missing background**: follow the establish-background process inline — draft all three sections (Semantics, Structure, Function) from the project context and available backgrounds; ask the user whether it should be global or project-specific; write the file to the confirmed location.
 
-- Role: <name> → run /slated:cast-role to define it
-- Background: <name> → run /slated:establish-background to define it
-
-Once created, run /slated:write-scene again to restart planning.
-```
-
-Do not proceed to Step 4 until the cast is fully satisfied by existing roles and backgrounds.
+Surface a brief note listing every role or background that was auto-created before proceeding to Step 4. Do not proceed to Step 4 until the cast is fully satisfied.
 
 ### Step 4 — Define objectives
 
@@ -202,7 +196,7 @@ Report the scene folder path, the number of actors cast, the number of objective
 
 - Never write files before the user confirms the manuscript
 - Never leave the Shot Locations section empty if `.claude/slated/set/locations.md` exists — always include the entries relevant to this scene's work
-- Never cast a role that does not exist in the merged role catalogue — flag the gap instead
+- Never cast a role that does not exist in the merged role catalogue — draft it autonomously using the cast-role process before continuing
 - Never assign an action to a role whose constraints prohibit it
 - Never write objectives that cannot be verified by observation
 - Never populate the Completion Record data in a newly written manuscript — include the HTML comment block and stub as placeholders only

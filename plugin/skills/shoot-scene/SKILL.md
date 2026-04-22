@@ -70,7 +70,7 @@ Scene <name> — COMPLETE
 
 Completed in <N> take(s).
 wrap.md written. Storyboard updated.
-Changes are on branch scene/<scene-name> — open a PR when ready.
+PR: <url>
 ```
 
 ---

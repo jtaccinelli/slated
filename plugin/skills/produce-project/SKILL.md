@@ -57,25 +57,11 @@ Required technologies:
 - <technology> → NO BACKGROUND DEFINED ✗
 ```
 
-**If any technology has no corresponding background**: stop here. Surface the gaps clearly:
+**If any technology has no corresponding background**: draft a new background document autonomously — use the project context established in Step 1 to populate all three sections (Semantics, Structure, Function) — and write the file to `.claude/slated/backgrounds/background-<name>.md`. Surface a brief note listing each background created before proceeding to Step 4.
 
-```
-The following technologies require background documents before production can proceed:
-- <technology>
+**If a background exists but its coverage is insufficient** (for example, a `cloudflare` background that does not document D1 databases when D1 is required for this project): treat it as `⚠ insufficient`. Extend the existing background autonomously — add the missing content to the relevant sections and save the updated file. Surface a brief note listing each background extended before proceeding to Step 4.
 
-Run /slated:establish-background for each before continuing.
-```
-
-**If a background exists but its coverage is insufficient** (for example, a `cloudflare` background that does not document D1 databases when D1 is required for this project): treat it as `⚠ insufficient`. Surface the specific missing coverage as a gap:
-
-```
-The following backgrounds exist but require updates before production can proceed:
-- background-<name>.md — missing coverage for: <specific gap>
-
-Run /slated:refine-background <name> to address the gap, or explicitly accept it before continuing.
-```
-
-Do not proceed until every required technology either has sufficient background coverage or the gap has been explicitly accepted by the user.
+In both cases, record what was created or extended in the Key Decisions section of the set outline (Step 5) so the gap is visible for future background refinement.
 
 ### Step 4 — Verify crew roles
 
@@ -97,7 +83,7 @@ Required crew roles:
 The following crew roles must be defined before production can proceed:
 - <role>
 
-Run /slated:cast-role for each before continuing.
+Run /slated:init to restore the bundled crew role definitions, then restart /slated:produce-project.
 ```
 
 Do not proceed until every required crew role is defined.
@@ -119,7 +105,7 @@ The outline must include:
 
 Do not introduce any pattern, value, or configuration that cannot be traced back to a background document. If a decision cannot be grounded in an available background, flag it to the user and ask rather than guessing.
 
-Present the full outline to the user before writing the file. Ask for confirmation or adjustments. Do not write the file until confirmed.
+Write `.claude/slated/set/outline.md` once the outline is complete.
 
 ---
 
@@ -133,9 +119,8 @@ Report the file path and confirm that all required backgrounds and roles are in 
 
 ## Rules
 
-- Never scaffold a technology without a corresponding background document — stop and flag the gap instead
-- Never proceed if any required role is missing — flag and stop
-- Never write the set outline before the user confirms it
+- Never scaffold a technology without a corresponding background document — draft one autonomously if missing
+- Never proceed if any required crew role is missing — flag and stop, prompt /slated:init
 - Never introduce a pattern that cannot be traced to a background document
 - Never build anything — the producer defines what must be built; the set-designer builds it
 - Never make foundational decisions (storage approach, auth pattern, package structure) without surfacing them to the user for confirmation

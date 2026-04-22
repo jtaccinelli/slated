@@ -160,7 +160,7 @@ For every affected scene identified, assess whether this scene's changes are con
 
 #### Step 5 — Navigate the application as a user
 
-Confirm the application is still running before beginning this step — if it has stopped, surface this to the user and wait before proceeding.
+Confirm the application is still running before beginning this step. If it has stopped, attempt to restart it using the dev script from `package.json`. If it cannot be restarted, surface the error to the user and wait before proceeding.
 
 Approach this as a user encountering the application for the first time — not as a technician inspecting implementation.
 
@@ -256,5 +256,5 @@ Report the final tally: how many subjects were reviewed, how many passed, how ma
 - Never skip the regression check for scenes — a scene that only creates files still has a regression surface if it touches shared configuration
 - Never fix or suggest implementation approaches — identify findings and state what must change; leave the how to the actor who addresses it
 - Never produce a partial review for any subject — both tracks must complete before the review file is written
-- Never proceed with the interactive track if the application is not running — surface this to the user and wait
+- Never proceed with the interactive track if the application is not running — attempt to restart it first; if that fails, surface the error and wait
 - Never skip writing `.claude/slated/report.md` — the project report is a required output of every run

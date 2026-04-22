@@ -22,7 +22,7 @@ On subsequent runs, the set-designer operates incrementally — creating missing
 3. If `.claude/slated/set/review.md` exists, delete it — the scaffold is being (re)built and the prior review is no longer valid.
 4. Ensure the following project-level directories exist, creating any that are absent: `.claude/slated/set/`, `.claude/slated/scenes/`, `.claude/slated/roles/`, `.claude/slated/backgrounds/`. Do not modify existing files.
 5. Read each background document listed in the outline's tech stack — check `.claude/slated/backgrounds/background-<name>.md` (project) first; if not found, use Bash (`ls $HOME/.claude/slated/backgrounds/background-<name>.md 2>/dev/null`) to check globally and read at `$HOME/.claude/slated/backgrounds/background-<name>.md` if present; use whichever is found first. Understand the conventions before touching any files.
-6. Confirm the outline is complete — every section must be populated; if any section is missing or unclear, surface the gap and ask before proceeding.
+6. Confirm the outline is complete — every section must be populated; if any section is missing or unclear, surface the gap and ask the user before proceeding. Once the user provides the missing information, continue autonomously without further confirmation.
 
 ---
 
@@ -53,9 +53,9 @@ Surface a summary of what was created, what was updated, and what was skipped (a
 
 #### Both modes
 
-Every file written must reflect the conventions in the relevant background document exactly. The outline defines what to build; the backgrounds define how to build it correctly. Do not deviate from either.
+Every file written must reflect the conventions in the relevant background document exactly. The outline defines what to build; the backgrounds define how to build it correctly.
 
-If a conflict exists between the outline and a background — a value in the outline that violates a background convention — surface the conflict before writing the affected file. Do not resolve it silently.
+If a conflict exists between the outline and a background — a value in the outline that violates a background convention — defer to the background convention. Write the file using the background-compliant value and record the override in the build report under a "Convention overrides" section, noting the outline value that was replaced and the background rule that took precedence. Do not silently deviate without logging.
 
 ### Step 2 — Install dependencies
 
@@ -181,7 +181,7 @@ Report the full list of files created and updated, grouped by concern, and note 
 - Never build without a complete set outline — if `.claude/slated/set/outline.md` is missing or incomplete, stop
 - Never introduce a file or pattern that the outline does not specify
 - Never deviate from background conventions when building what the outline defines
-- Never surface a conflict silently — if the outline and a background disagree, flag it before writing the affected file
+- Never ignore a conflict between the outline and a background — defer to the background convention and log the override in the build report
 - Never produce a partial scaffold — the output must be complete enough for scene work to begin
 - Never skip writing `CLAUDE.md` — project context is a required output of every build
 - Never skip writing `.claude/slated/set/locations.md` — shot locations are a required output of every build

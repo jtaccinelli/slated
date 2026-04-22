@@ -27,8 +27,8 @@ Execute one take of a scene. Dispatch actors per the manuscript cast, review all
    - Derive the take branch name: `take/<scene-name>-<NNN>` (using the zero-padded take number from step 5)
    - Derive the worktree path: `.worktrees/take-<scene-name>-<NNN>` (relative to the repo root)
    - Create the worktree from the scene branch: `git worktree add -b take/<scene-name>-<NNN> .worktrees/take-<scene-name>-<NNN> scene/<scene-name>`
-   - If the worktree cannot be created (e.g. branch already exists from a previous attempt), stop and report the conflict — do not proceed until it is resolved
-   - Record the absolute worktree path for use in Step 2
+   - If the worktree cannot be created because the take branch already exists from a previous attempt: force-delete the stale branch (`git branch -D take/<scene-name>-<NNN>`), remove any stale worktree at the path if present (`git worktree remove --force .worktrees/take-<scene-name>-<NNN>`), then retry the `git worktree add` command. If the retry fails for any other reason, stop and report the error — do not proceed until it is resolved.
+   - Record the absolute worktree path for use in Step 2. If any cleanup was performed, note it — it will be recorded in the take file's Actor Summary.
 
 ---
 
@@ -210,18 +210,7 @@ Stop here. Do not proceed automatically.
 
 **If the take passed:**
 
-Surface a clear summary:
-
-```
-Take <NNN> — PASS
-
-All objectives met. Scene is ready for completion.
-Changes are on branch scene/<scene-name> — open a PR when ready.
-
-Run /slated:wrap-scene <scene-name> to produce wrap.md and update the storyboard.
-```
-
-Stop here.
+Execute the wrap-scene process in full for the current scene — do not stop and return control to the user first. The wrap-scene process will produce `wrap.md`, update the storyboard, and open a PR. Only return control to the user after the wrap-scene process has completed.
 
 ---
 
@@ -241,7 +230,8 @@ Stop here.
 - Never skip the writer review — manuscript fidelity is not optional
 - Never skip dispatching the writer when manuscript issues are identified — unresolved issues compound across takes
 - Never write vague Director's Notes — every finding must have a rule, a location, and a required change
-- Never auto-proceed to another take — always stop and return control to the user (except when orchestrated by `/slated:shoot-scene`, which explicitly overrides this at Step 1.1)
+- Never auto-proceed to another take on a FAIL — always stop and return control to the user (except when orchestrated by `/slated:shoot-scene`, which explicitly overrides this at Step 1.1)
+- Never stop on a PASS — always execute the wrap-scene process inline without returning control to the user
 - Never approve a take where an actor violated their role's constraints, even if the output appears correct
 - If a previous take exists, always pass the take file path to each actor — never run a subsequent take without the actor having access to their own prior notes
 - Never create a take worktree directly from main — always create or reuse the scene branch (`scene/<scene-name>`) first and branch the take off of it
