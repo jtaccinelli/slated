@@ -162,14 +162,26 @@ Dispatch a director actor. Pass:
 
 #### Outcome
 
-If the director role review loop ended with findings (cap reached), or Part 3 returned `FLAGGED`:
+**Step A — Resolve manuscript gaps:**
+
+If Part 3 returned `FLAGGED` with any `MANUSCRIPT GAP` findings, dispatch a writer actor. Pass:
+- The path to the manuscript
+- The `MANUSCRIPT GAP` findings verbatim, each attributed to actor and shot
+- An instruction to fix those gaps by revising only the affected Actions (and Objectives if applicable) in the manuscript — eliminating the ambiguity that caused each assumption
+- An instruction not to touch the Pre-Shoot Review section or any other sections
+
+Wait for the writer to complete before proceeding.
+
+**Step B — Document unresolved role gaps:**
+
+If the director role review loop ended with findings (cap reached), or Part 3 returned `FLAGGED` with any `ROLE GAP` findings:
 
 Dispatch a writer actor. Pass:
 - The path to the manuscript
-- All findings: director role assessment (if any) and categorised actor assumptions (if any)
-- An instruction to replace the `## Pre-Shoot Review` section in the manuscript with the consolidated feedback — populating the Director Role Assessment table and the Actor Assumptions table as applicable, and removing the HTML comment placeholder
+- All remaining findings: director role assessment (if the Part 1 cap was reached) and any `ROLE GAP` actor assumptions from Part 3
+- An instruction to replace the `## Pre-Shoot Review` section in the manuscript with the consolidated feedback — populating the Director Role Assessment table and the Actor Assumptions table (ROLE GAP items only) as applicable, and removing the HTML comment placeholder
 
-If all parts returned clean verdicts, remove the entire Pre-Shoot Review section from the manuscript — including the HTML comment block.
+If all parts returned clean verdicts and all manuscript gaps were resolved in Step A, remove the entire Pre-Shoot Review section from the manuscript — including the HTML comment block.
 
 ---
 
@@ -214,4 +226,5 @@ Report the scene folder path, the number of actors cast, the number of objective
 - Never populate the Completion Record data in a newly written manuscript — include the HTML comment block and stub as placeholders only
 - Never prompt the user during the pre-shoot review loop — it runs fully automatically
 - Never skip the pre-shoot review — it runs after every confirmed manuscript
+- Never document a MANUSCRIPT GAP finding in the Pre-Shoot Review section — fix it in the manuscript directly during the Outcome Step A; only ROLE GAP findings are documented
 - Never modify crew roles during the pre-shoot review loop — only cast role definitions may be updated

@@ -72,7 +72,9 @@ The step-by-step sequence of work this scene requires. Each action is assigned t
 
 <!--
   The writer replaces this comment block and the stub below with pre-shoot review feedback
-  if the review loop flags issues. If the review returned clean, remove this section entirely.
+  if the review loop flags unresolved ROLE GAP issues. MANUSCRIPT GAP findings are fixed
+  directly in the Actions/Objectives sections above and are never documented here.
+  If the review returned clean (or all gaps were resolved), remove this section entirely.
 -->
 
 ## Pre-Shoot Review
@@ -89,7 +91,7 @@ The step-by-step sequence of work this scene requires. Each action is assigned t
 
 | Actor | Shot | Assumption | Category |
 |---|---|---|---|
-| `actor-1` | Shot 1 | <assumption text> | ROLE GAP / MANUSCRIPT GAP |
+| `actor-1` | Shot 1 | <assumption text> | ROLE GAP |
 
 ---
 
